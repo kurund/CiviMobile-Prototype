@@ -60,7 +60,7 @@ function civimobile_menu() {
     );
 
     $items['civimobile/contact/search'] = array(
-      'title'            => 'Contact Search',
+      'title'            => 'Contacts Location Search',
       'page callback'    => '_civimobile_page',
       'page arguments'   => array('contact.search'),
       'access arguments' => array('access CiviCRM'),
