@@ -24,8 +24,6 @@
 	 </div>
 
  </div>
-
-
   <div> 
           <a href="<?php print base_path(); ?>civimobile/contact" data-role="button">Back to contact list</a>
   </div>  
@@ -37,6 +35,7 @@
        				$('#useLocation').click(function(){
               $('#postcode').val('');
      					 if (this.checked) {
+                    $('#contacts').remove();
             				if (navigator.geolocation) {
                  				navigator.geolocation.getCurrentPosition(onSuccess, onError);
             				} else {
