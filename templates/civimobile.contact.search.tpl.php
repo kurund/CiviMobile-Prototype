@@ -16,13 +16,16 @@
  
 <div data-role="content" id="contact-content"> 
   	<div class="ui-listview-filter ui-bar-c">
- 	<div data-role="fieldcontain">
-			<input type="checkbox" name="checkbox-1" id="useLocation" class="custom" />
+   <div data-role="fieldcontain" class="ui-hide-label">
+      <label for="postcode">postcode:</label>
+      <input type="text" name="postcode" id="postcode" value="" placeholder="Postcode"/>
+  </div>
+ 	 <div data-role="fieldcontain">
+			<input type="checkbox" name="curLocation-1" id="useLocation" class="custom" />
 			<label for="useLocation">Use current location</label>
 	    </fieldset>
 	 </div>   
 	 </div>
-	  <div id="locationResult"></div>
  </div>
 
 
@@ -44,22 +47,18 @@
                				$('#useLocation').value = "Geolocation not supported";
                				$('#useLocation').unbind('click');
           				}
-          			}
+          		}else{
+                $('#contacts').remove()
+              }
      				});
 
      				function onSuccess(location) {
 						//var message = document.getElementById("locationResult");
-						//message.innerHTML ="<img src='http://maps.google.com/staticmap?center=" + location.coords.latitude + "," + location.coords.longitude + "&size=300x200&maptype=hybrid&zoom=16&key=YOURGOOGLEAPIKEY' />";
-						/*
-						message.innerHTML+="<p>Longitude: " + location.coords.longitude + "</p>";
-						message.innerHTML+="<p>Latitude: " + location.coords.latitude + "</p>";
-						message.innerHTML+="<p>Accuracy: " + location.coords.accuracy + "</p>";
-						 */
+						//message.innerHTML ="<img src='http://maps.google.com/staticmap?center=" + location.coords.latitude + "," + location.coords.longitude + "&size=300x200&maptype=hybrid&zoom=16&key=YOURGOOGLEAPIKEY' />";						
 						console.log('latitude' + location.coords.latitude );
 						console.log('longitude' + location.coords.longitude );
 						console.log('Accuracy: ' + location.coords.accuracy);
-
-						contactSearch(location);
+						searchContactByGeoLocation(location);
 					}
      				 
 					// Error function for Geolocation call
@@ -70,9 +69,9 @@
  
 				});
 
-function contactSearch (params){
+function searchContactByGeoLocation (params){
     $.mobile.showPageLoadingMsg( 'Searching' );
-    $().crmAPI ('ContactMobile','get',{'version' :'3', 'latitude': params.coords.latitude, 'longitude' :  params.coords.longitude, 'distance' : 2000}
+    $().crmAPI ('Contact','get_by_location',{'version' :'3', 'latitude': params.coords.latitude, 'longitude' :  params.coords.longitude, 'distance' : 2000}
           ,{ 
             ajaxURL: crmajaxURL,
             success:function (data){ 
@@ -86,21 +85,17 @@ function contactSearch (params){
                 $('#contacts').empty();
               }
 
-            $('#contact-content').append('<ul id="contacts" data-role="listview" data-inset="false" data-filter="false" ></ul>');
-  			$.each(data.values, function(key, value) {
-     			$('#contacts').append('<li role="option" tabindex="-1" data-ajax="false" data-theme="c" id="contact-'+value.contact_id+'" ><a href="/codesprint/civimobile/contact/'+value.contact_id+'" data-role="contact-'+value.contact_id+'">'+value.display_name+'</a></li>');
-   			});
-           	$.mobile.hidePageLoadingMsg( );
-           	$('#contacts').listview(); 
-
+              $('#contact-content').append('<ul id="contacts" data-role="listview" data-inset="false" data-filter="false" ></ul>');
+  			      $.each(data.values, function(key, value) {
+     			      $('#contacts').append('<li role="option" tabindex="-1" data-ajax="false" data-theme="c" id="contact-'+value.contact_id+'" ><a href="/codesprint/civimobile/contact/'+value.contact_id+'" data-role="contact-'+value.contact_id+'">'+value.display_name+'</a></li>');
+   			      });
+              $.mobile.hidePageLoadingMsg( );
+              $('#contacts').listview();
           }
    });
 }
 	
         
 </script>
-
-
 </div> 
-
 <?php require('civimobile.footer.php'); ?>
