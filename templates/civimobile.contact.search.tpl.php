@@ -7,7 +7,7 @@
 
   <div id="jqm-contactsheader" data-role="header">
         <h3>Contacts Location Search</h3>
-        <a href="/civimobile" data-ajax="false" data-direction="reverse" data-role="button" data-icon="home" data-iconpos="notext" class="ui-btn-right jqm-home">Home</a>
+        <a href="<?php print base_path(); ?>civimobile" data-ajax="false" data-direction="reverse" data-role="button" data-icon="home" data-iconpos="notext" class="ui-btn-right jqm-home">Home</a>
 		<!-- <a href="#" id="add-contact-button" data-role="button" data-icon="plus" class="ui-btn-left jqm-home">Add</a> 
 		<a href="#" id="back-contact-button" data-role="button" data-icon="arrow-l" class="ui-btn-left jqm-home" style="display:none">Back</a>
 		-->
@@ -27,13 +27,12 @@
 
 
   <div> 
-          <a href="/civimobile/contact" data-role="button">Back to contact list</a>
+          <a href="<?php print base_path(); ?>civimobile/contact" data-role="button">Back to contact list</a>
   </div>  
  
     	  <script language="javascript" type="text/javascript">
             
     		   	$(document).ready(function(){
-              alert(crmajaxURL);
      				// Add a click listener on the button to get the location data
        				$('#useLocation').click(function(){
               $('#postcode').val('');
@@ -125,7 +124,7 @@ function searchContactByGeoLocation (params){
 
 
 function buildList(data){
-  $('#contacts').append('<li role="option" tabindex="-1" data-ajax="false" data-theme="c" id="contact-'+data.contact_id+'" ><a href="/codesprint/civimobile/contact/'+data.contact_id+'" data-role="contact-'+data.contact_id+'">'+data.display_name+'</a></li>');
+  $('#contacts').append('<li role="option" tabindex="-1" data-ajax="false" data-theme="c" id="contact-'+data.contact_id+'" ><a href="'+base_url+'civimobile/contact/'+data.contact_id+'" data-role="contact-'+data.contact_id+'">'+data.display_name+'</a></li>');
 }
 	
         
