@@ -58,6 +58,14 @@ function civimobile_menu() {
       'access arguments' => array('access CiviCRM'),
       'type'             => MENU_NORMAL_ITEM,
     );
+
+    $items['civimobile/contact/search'] = array(
+      'title'            => 'Contacts Location Search',
+      'page callback'    => '_civimobile_page',
+      'page arguments'   => array('contact.search'),
+      'access arguments' => array('access CiviCRM'),
+      'type'             => MENU_NORMAL_ITEM,
+    );  
     
     $items['civimobile/contact/%'] = array(
       'title'            => 'Contact',
@@ -66,6 +74,8 @@ function civimobile_menu() {
       'access arguments' => array('access CiviCRM'),
       'type'             => MENU_NORMAL_ITEM,
     );
+
+    
     
     $items['civimobile/contribution/%'] = array(
       'title'            => 'Contribution',
@@ -114,6 +124,9 @@ function civimobile_menu() {
       'access arguments' => array('access CiviCRM'),
       'type'             => MENU_NORMAL_ITEM,
     );
+       
+    
+    
     
   
   return $items;
@@ -156,6 +169,8 @@ function _civimobile_participant_status_page() {
   include_once(drupal_get_path('module','civimobile').'/templates/civimobile.participant_status.tpl.php');
   return NULL;
 }
+
+
 
 
 function _civimobile_vars_setup() {
