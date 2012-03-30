@@ -5,44 +5,39 @@
 	
     // get last arg of path (survey id)
     $survey_id = arg(2);
-	// $survey_results = civicrm_api("Survey","get", 
-	//                     array ( 'sequential' =>'1', 
-	//                             'version'=>3, 
-	//                             'id' => $survey_id, 
-	//                             'return' => 'title')
-	//                             );
-	// 	//print_r($survey_results);
-	// 	//civicrm_initialize( );
-	//     //require_once 'CRM/Campaign/BAO/Survey.php';
-	//     //$voters = CRM_Campaign_BAO_Survey::getSurveyVoterInfo( $survey_id );
-	// 	
-	//     $results = civicrm_api("SurveyVoter","get", 
-	//                     array ( 'sequential' => '1', 
-	//                             'version'=> 3 ,
-	// 							'debug'=>1,							
-	//                             'id'=>$survey_id) 
-	//                             );
-	// //print_r($results);exit;
-	//     $survey_voters = $results['values'];
-	// 	
+	$survey_results = civicrm_api("Survey","get", 
+                    array ( 'sequential' =>'1', 
+                            'version'=>3, 
+                            'id' => $survey_id, 
+                            'return' => 'title')
+                            );
 	
-
+	//civicrm_initialize( );
+    //require_once 'CRM/Campaign/BAO/Survey.php';
+    //$voters = CRM_Campaign_BAO_Survey::getSurveyVoterInfo( $survey_id );
+	
+    $results = civicrm_api("SurveyVoter","get", 
+                    array ( 'sequential' => '1', 
+                            'version'=> 3 ,
+							'debug'=>1,							
+                            'id'=>$survey_id) 
+                            );
+    $survey_voters = $results['values'];
 	include('civimobile.header.php');
 ?>
 <script type="text/javascript" src="http://github.com/janl/mustache.js/raw/master/mustache.js"></script>
 <script type="text/javascript">
-	//var template = $('#surveyTpl').html();
+	var template = $('#surveyTpl').html();
 	//alert(template);
-	var surveyId = <?php echo $survey_id ?>;
-	$().crmAPI ('Survey','get',{'version' :'3', 'id': surveyId }
+	$().crmAPI ('Survey','get',{'version' :'3', 'id': '1'}
           ,{ 
             ajaxURL: crmajaxURL,
             success:function (data){ 
-				alert(data.values[surveyId].title);
-				var surveyName = data.values[surveyId].title;
+				alert(data.values[1].title);
+				var surveyName = data.values[1].title;
             }
    });
-  // alert(surveyName);
+   alert(surveyName);
    var surveyData = {
 		surveyName: "surveyName",
 		blogURL: "http://coenraets.org"
