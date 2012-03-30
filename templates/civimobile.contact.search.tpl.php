@@ -6,24 +6,20 @@
 <div data-role="page" data-theme="c" id="jqm-contacts">
 
   <div id="jqm-contactsheader" data-role="header">
-        <h3>Contacts Location Search</h3>
+        <h3>Contacts proximity search</h3>
         <a href="<?php print base_path(); ?>civimobile" data-ajax="false" data-direction="reverse" data-role="button" data-icon="home" data-iconpos="notext" class="ui-btn-right jqm-home">Home</a>
-		<!-- <a href="#" id="add-contact-button" data-role="button" data-icon="plus" class="ui-btn-left jqm-home">Add</a> 
-		<a href="#" id="back-contact-button" data-role="button" data-icon="arrow-l" class="ui-btn-left jqm-home" style="display:none">Back</a>
-		-->
- </div>
+	</div>
  
 <div data-role="content" id="contact-content"> 
-  <div class="ui-listview-filter ui-bar-c">
-  <input type="search" name="postcode" id="postcode" placeholder="Postcode"/>
- 	 <div data-role="fieldcontain">
-			<input type="checkbox" name="curLocation" id="useLocation" class="custom" />
-			<label for="useLocation">Use current location</label>
-	 </div>   
+	<div class="ui-listview-filter ui-bar-c">
+		<input type="search" name="postcode" id="postcode" placeholder="Postcode"/>
+	</div>
+	<div data-role="fieldcontain">
+		<input type="checkbox" name="curLocation" id="useLocation" class="custom" />
+		<label for="useLocation">Use current location</label>
+	</div>   
+</div>
 
-	 </div>
-
- </div>
   <div> 
           <a href="<?php print base_path(); ?>civimobile/contact" data-role="button">Back to contact list</a>
   </div>  
@@ -102,7 +98,7 @@ function searchContactByPostcode(postcode){
 
 function searchContactByGeoLocation (params){
     $.mobile.showPageLoadingMsg( 'Searching' );
-    $().crmAPI ('Contact','get_by_location',{'version' :'3', 'latitude': params.coords.latitude, 'longitude' :  params.coords.longitude, 'distance' : 2000}
+    $().crmAPI ('Location','get_by_location',{'version' :'3', 'latitude': params.coords.latitude, 'longitude' :  params.coords.longitude, 'distance' : 200, 'units' : 'miles'}
           ,{ 
             ajaxURL: crmajaxURL,
             success:function (data){ 
